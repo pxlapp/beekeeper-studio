@@ -333,6 +333,8 @@ export class PostgresClient extends BasicDatabaseClient<QueryResult> {
         ${this.version.number > 120_000 ? 'is_generated,' : ''}
         ordinal_position,
         column_default,
+        data_type AS raw_data_type,
+        udt_name,
         CASE
           WHEN character_maximum_length is not null  and udt_name != 'text'
             THEN udt_name || '(' || character_maximum_length::varchar(255) || ')'
@@ -353,13 +355,14 @@ export class PostgresClient extends BasicDatabaseClient<QueryResult> {
       ORDER BY table_schema, table_name, ordinal_position
     `;
 
-    const data = await this.driverExecuteSingle(sql, { params });
+    const data = await this.driverExecuteSingle(sql, {params});
 
     return data.rows.map((row: any) => ({
       schemaName: row.table_schema,
       tableName: row.table_name,
       columnName: row.column_name,
       dataType: row.data_type,
+      rawDataType: row.raw_data_type == "USER-DEFINED" ? row.udt_name : row.raw_data_type,
       nullable: row.is_nullable === 'YES',
       defaultValue: row.column_default,
       ordinalPosition: Number(row.ordinal_position),

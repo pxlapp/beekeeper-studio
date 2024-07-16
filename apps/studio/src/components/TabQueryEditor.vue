@@ -43,7 +43,6 @@
         :vim-config="vimConfig"
         @initialized="handleEditorInitialized"
       />
-      <span class="expand" />
       <div class="toolbar text-right">
         <div class="editor-help expand" />
         <div class="expand" />
@@ -332,7 +331,7 @@
 
   const log = rawlog.scope('query-editor')
   const isEmpty = (s) => _.isEmpty(_.trim(s))
-  const editorDefault = "\n\n\n\n\n\n\n\n\n\n"
+  const editorDefault = ''
 
   export default {
     // this.queryText holds the current editor value, always

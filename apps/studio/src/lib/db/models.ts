@@ -95,6 +95,7 @@ export interface ExtendedTableColumn extends SchemaItem {
   ordinalPosition: number
   schemaName?: string
   tableName: string
+  rawDataType?: string
   hasDefault?: boolean
   generated?: boolean
   array?: boolean

@@ -1,16 +1,9 @@
 <template>
-  <text-editor
-    v-bind="$attrs"
+  <text-editor-v2
     :value="value"
     @input="$emit('input', $event)"
-    :hint="hint"
-    :mode="dialectData.textEditorMode"
-    :extra-keybindings="keybindings"
-    :hint-options="hintOptions"
-    :columns-getter="columnsGetter"
-    :context-menu-options="handleContextMenuOptions"
+    :lang="connectionType || 'sql'"
     :forced-value="dataForcedValue"
-    :plugins="plugins"
     @update:focus="$emit('update:focus', $event)"
     @update:selection="$emit('update:selection', $event)"
     @update:cursorIndex="$emit('update:cursorIndex', $event)"
@@ -20,7 +13,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import TextEditor from "./TextEditor.vue";
+import TextEditorV2 from "./TextEditorV2.vue";
 import { mapState, mapGetters } from "vuex";
 import { plugins } from "@/lib/editor/utils";
 import { format } from "sql-formatter";
@@ -28,7 +21,7 @@ import { FormatterDialect, dialectFor } from "@shared/lib/dialects/models";
 import CodeMirror from "codemirror";
 
 export default Vue.extend({
-  components: { TextEditor },
+  components: { TextEditorV2 },
   props: ["value", "connectionType", "extraKeybindings", "contextMenuOptions", "forcedValue"],
   data() {
     return {
@@ -36,8 +29,8 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapGetters(['defaultSchema', 'dialectData']),
-    ...mapState(["tables"]),
+    ...mapGetters(['defaultSchema']),
+    ...mapState(['pxlReady', 'tables']),
     hint() {
       // @ts-expect-error not fully typed
       return CodeMirror.hint.sql;

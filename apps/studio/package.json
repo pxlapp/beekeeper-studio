@@ -24,6 +24,11 @@
   "dependencies": {
     "@aws-sdk/client-redshift": "^3.145.0",
     "@azure/msal-node": "1.18.4",
+    "@codemirror/commands": "^6.3.3",
+    "@codemirror/lang-sql": "^6.5.4",
+    "@codemirror/language": "^6.10.0",
+    "@codemirror/state": "^6.4.0",
+    "@codemirror/view": "^6.23.0",
     "@electron/remote": "^2.0.9",
     "@libsql/knex-libsql": "^0.1.0",
     "@pdanpdan/vue-keyboard-trap": "^1.0.19",

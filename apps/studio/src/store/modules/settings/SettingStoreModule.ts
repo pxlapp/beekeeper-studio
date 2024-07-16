@@ -71,6 +71,12 @@ const SettingStoreModule: Module<State, any> = {
     minimalMode(state) {
       return state.settings.minimalMode.value
     },
+    pxlApiUrl(state) {
+      return state.settings.pxlApiUrl.value
+    },
+    pxlAccessToken(state) {
+      return state.settings.pxlAccessToken.value
+    }
   }
 }
 

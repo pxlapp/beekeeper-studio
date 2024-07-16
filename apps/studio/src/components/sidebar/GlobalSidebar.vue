@@ -28,14 +28,25 @@
       <span class="material-icons">history</span>
     </a>
     <span class="expand" />
+    <Pxl
+      title="PXL configuration"
+      class="nav-item"
+      v-if="connectionType === 'postgresql'"
+    />
   </div>
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+  import Pxl from '@/components/Pxl';
   export default {
     props: ['activeItem'],
-    components: { },
+    components: { Pxl },
     computed: {
+        ...mapState({'config': 'usedConfig'}),
+        connectionType() {
+          return `${this.config.connectionType}`;
+        },
     },
     methods: {
       click(item) {

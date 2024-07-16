@@ -1,0 +1,42 @@
+#pxl {
+  .traffic-light {
+    height: 4px;
+    width: 12px;
+    background-color: grey;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2px;
+
+    &.green {
+      background-color: limegreen;
+    }
+
+    &.orange {
+      background-color: orange;
+    }
+
+    &.red {
+      background-color: red;
+    }
+
+    &.blue {
+      background-color: DodgerBlue;
+    }
+  }
+}
+
+.pxl-auth-modal {
+  .instruction {
+    margin-bottom: 8px;
+
+    >a {
+      text-decoration: underline;
+    }
+  }
+
+  .code {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+}

@@ -60,7 +60,8 @@ export interface State {
   workspaceId: number,
   storeInitialized: boolean,
   windowTitle: string,
-  connError: string
+  connError: string,
+  pxlReady: boolean,
 }
 
 Vue.use(Vuex)
@@ -103,7 +104,8 @@ const store = new Vuex.Store<State>({
     workspaceId: LocalWorkspace.id,
     storeInitialized: false,
     windowTitle: 'Beekeeper Studio',
-    connError: null
+    connError: null,
+    pxlReady: false,
   },
 
   getters: {
@@ -330,6 +332,9 @@ const store = new Vuex.Store<State>({
     },
     setConnError(state, err: string) {
       state.connError = err;
+    },
+    updatePxlReady(state, value: boolean) {
+      state.pxlReady = value;
     }
   },
   actions: {
@@ -522,7 +527,7 @@ const store = new Vuex.Store<State>({
           // to dispatch that separately as it causes blinking tabletable state.
           for (const table of tables) {
             const match = context.state.tables.find((st) => tablesMatch(st, table))
-            if (match?.columns?.length > 0) {
+            if (table.schema === 'public' || match?.columns?.length > 0) {
               table.columns = (table.entityType === 'materialized-view' ?
                 await context.state.connection?.listMaterializedViewColumns(table.name, table.schema) :
                 await context.state.connection?.listTableColumns(table.name, table.schema)) || []
